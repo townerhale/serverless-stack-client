@@ -4,12 +4,10 @@ import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
-import { useHistory } from "react-router-dom";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
 
 export default function Login() {
-  const history = useHistory(); //used for redirecting to another page once logged in
   const { userHasAuthenticated } = useAppContext(); //we want our context here and to use the userHasAuthneticated fuction
   const [isLoading, setIsLoading] = useState(false); //used to give feedback while we are logging in
   const [fields, handleFieldChange] = useFormFields({
@@ -29,7 +27,6 @@ export default function Login() {
     try {
       await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
-      history.push("/"); //redirect to another page
     } catch (e) {
       onError(e); //from the onError function in /libs/errorLib
       setIsLoading(false);
