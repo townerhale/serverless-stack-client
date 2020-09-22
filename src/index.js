@@ -6,6 +6,9 @@ import './index.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { initSentry } from './libs/errorLib';
+
+initSentry();
 
 //amplify refers to cognito as auth, s3 as storage, and api gateway as api
 Amplify.configure({
